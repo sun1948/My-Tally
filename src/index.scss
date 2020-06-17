@@ -1,4 +1,6 @@
 @import-nomalize;
+@import 'helper.scss';
+
 *{margin:0;padding:0;}
 *{box-sizing:border-box;}
 *::before{box-sizing:border-box;}
@@ -9,4 +11,9 @@ ul,ol{
 a{
   text-decoration: none;
   color: inherit;
+}
+body{
+  font-family: $font-hei;
+  font-size: 16px;
+  line-height: 24px;  //最好在开始确定，否则后面改影响范围大
 }

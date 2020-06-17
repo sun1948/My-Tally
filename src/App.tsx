@@ -7,6 +7,7 @@ import {
   Redirect
 } from 'react-router-dom';
 import styled from 'styled-components';
+import Nav from './components/Nav';
 
 const Wrapper = styled.div`
   border: 1px solid black;
@@ -18,17 +19,7 @@ const Wrapper = styled.div`
 const Content = styled.div`
   flex-grow:1;
 `
-const Nav = styled.div`
-  border:1px solid black;
-  > ul{
-    display: flex;
-    > li{
-      width: 333333%;
-      text-align: center;
-      padding: 16px;
-    }
-  }
-`
+
 function App() {
   return (
     <Router>
@@ -50,19 +41,7 @@ function App() {
             </Route>
           </Switch>
         </Content>
-        <Nav>
-          <ul>
-            <li>
-              <Link to="/tag">标签</Link>
-            </li>
-            <li>
-              <Link to="/money">记账</Link>
-            </li>
-            <li>
-              <Link to="/statistics">统计</Link>
-            </li>
-          </ul>
-        </Nav>
+        <Nav/>
       </Wrapper>
     </Router>
   );

@@ -1,17 +1,56 @@
 import React from 'react';
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Switch,
   Route,
   Link,
   Redirect
 } from 'react-router-dom';
+import styled from 'styled-components';
 
+const Wrapper = styled.div`
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  height:100vh;
+`;
+
+const Content = styled.div`
+  flex-grow:1;
+`
+const Nav = styled.div`
+  border:1px solid black;
+  > ul{
+    display: flex;
+    > li{
+      width: 333333%;
+      text-align: center;
+      padding: 16px;
+    }
+  }
+`
 function App() {
   return (
     <Router>
-      <div>
-        <nav>
+      <Wrapper>
+        <Content>
+          <Switch>
+            <Route path="/tag">
+              <Tag/>
+            </Route>
+            <Route path="/money">
+              <Money/>
+            </Route>
+            <Route path="/statistics">
+              <Statistics/>
+            </Route>
+            <Redirect exact from="/" to="/tag"/>
+            <Route path="*">
+              <NoMatch/>
+            </Route>
+          </Switch>
+        </Content>
+        <Nav>
           <ul>
             <li>
               <Link to="/tag">标签</Link>
@@ -23,24 +62,8 @@ function App() {
               <Link to="/statistics">统计</Link>
             </li>
           </ul>
-        </nav>
-
-        <Switch>
-          <Route path="/tag">
-            <Tag/>
-          </Route>
-          <Route path="/money">
-            <Money/>
-          </Route>
-          <Route path="/statistics">
-            <Statistics/>
-          </Route>
-          <Redirect exact from="/" to="/tag"/>
-          <Route path="*">
-            <NoMatch/>
-          </Route>
-        </Switch>
-      </div>
+        </Nav>
+      </Wrapper>
     </Router>
   );
 }

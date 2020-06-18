@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import React from 'react';
-import {Link, NavLink} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import Icon from './Icon';
 
-const NavWrapper = styled.div`
+const NavWrapper = styled.nav`
   box-shadow: 0 0 3px rgba(0,0,0,0.3);
   > ul{
     display: flex;
@@ -15,6 +15,10 @@ const NavWrapper = styled.div`
         display: flex;
         flex-direction: column; 
         align-items: center;
+        .icon{
+          width: 24px;
+          height: 24px;
+        }
         &.selected{
           color: red;
           .icon{

@@ -12,9 +12,9 @@ type Props = {
 }
 const Icon = (props: Props) => {
   return (
-    <svg className='icon'>
+    <svg className="icon">
       {/*注意.name，外部数据以对象形式传入*/}
-      <use xlinkHref={'#' + props.name}/>
+      <use xlinkHref={"#" + props.name}/>
     </svg>
   );
 };

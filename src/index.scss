@@ -18,5 +18,7 @@ body{
   line-height: 24px;  //最好在开始确定，否则后面改影响范围大
   background-color: #f5f5f5;
 }
-
+:focus{
+  outline: none;
+}
 

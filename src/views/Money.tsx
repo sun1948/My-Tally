@@ -3,34 +3,42 @@ import Layout from 'components/layout';
 import styled from 'styled-components';
 
 const TagsSection = styled.section`
-  border: 1px solid red;
   background-color: #ffffff;
   padding: 12px 16px;
   ol{
     font-size: 14px;
     margin: 0 -12px;
     >li{
-      background-color: #d9d9d9; 
-      display: inline-block; 
-      border-radius: 18px;
-      padding: 1px 18px;
-      line-height: 22px;
-      margin: 4px 12px;
+      background-color: #d9d9d9; display: inline-block; 
+      border-radius: 18px; padding: 1px 18px;
+      line-height: 22px;margin: 4px 12px;
     }
   }
   button{
-    font-size: 14px;
-    border: none;
-    background: none;
-    border-bottom: 1px solid #333;
-    color: #666;
-    padding: 2px 4px;
-    margin-top: 14px;
+    font-size: 14px;border: none;
+    background: none;border-bottom: 1px solid #333;
+    color: #666; padding: 2px 4px; margin-top: 14px;
   } 
   
 `
 const NotesSection = styled.section`
-
+  label{ 
+    background-color: #f5f5f5;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    > span{
+      font-size: 14px; line-height: 22px; color: #333333;
+      white-space: nowrap;
+      margin-right: 16px;
+    }
+    > input{
+      height: 73px;
+      width: 100%;
+      border: none;
+      background: none;
+    }
+  }
 `
 const CategorySection = styled.section`
 

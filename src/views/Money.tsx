@@ -41,7 +41,19 @@ const NotesSection = styled.section`
   }
 `
 const CategorySection = styled.section`
-
+  background: #C4C4C4;
+  font-size: 24px;
+  line-height: 22px;
+  >ul{
+    >li{
+      width: 50%; text-align: center;
+      display:inline-block; padding: 21px 0; position: relative;
+      &.selected::after{
+        content: ''; height: 4px; background: #333333; width: 100%;
+        position: absolute; left: 0; bottom: 0;
+      }
+    }
+  }
 `
 const NumberPadSection = styled.section`
 
@@ -62,12 +74,12 @@ const Money = () => {
       <NotesSection>
         <label>
           <span>备注</span>
-          <input type="text"/>
+          <input type="text" placeholder="在此添加备注"/>
         </label>
       </NotesSection>
       <CategorySection>
         <ul>
-          <li>支出</li>
+          <li className="selected">支出</li>
           <li>收入</li>
         </ul>
       </CategorySection>

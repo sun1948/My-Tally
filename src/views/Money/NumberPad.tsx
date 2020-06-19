@@ -1,24 +1,34 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Wrapper} from './NumberPad/Wrapper';
 import {generateOutput} from './NumberPad/generateOutput';
 
-
-const NumberPadSection: React.FC = () => {
-  const [output, _setOutput] = useState('0');
+type Props = {
+  value:number;
+  onChange:(output:number)=>void;
+  onOk?:()=>void;
+}
+const NumberPadSection: React.FC<Props> = (props) => {
+  // console.log('刷新了');
+  const output = props.value.toString();
+  // console.log('新的output:'+output);
   const setOutput = (output: string) => {
+    let value;
     if (output.length > 16) {
-      output = output.slice(0,16);
+      value = parseFloat(output.slice(0,16));
     }else if(output.length === 0){
-      output = '0';
+      value = 0;
+    }else{
+      // console.log('computed:'+output);
+      value = parseFloat(output);
+      // console.log('value:'+value)
     }
-    _setOutput(output);
+    props.onChange(value);
   };
   const onClick = (e: React.MouseEvent) => {
     const text = (e.target as HTMLButtonElement).textContent;
     if (text === null) return;
     if(text === 'ok'){
-      //TODO
-      return
+      if(props.onOk) props.onOk();
     }
     setOutput(generateOutput(text,output));
   };

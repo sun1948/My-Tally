@@ -29,22 +29,26 @@ const Wrapper = styled.section`
   
 `;
 
-const TagsSection: React.FunctionComponent = () => {
+type Props = {
+  value: string[];
+  onChange: (NewSelectedTags:string[]) => void;
+}
+const TagsSection: React.FunctionComponent<Props> = (props) => {
+  const selectedTags = props.value;
   const [tags, setTags] = useState<string[]>(['衣', '食', '住', '行']);
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  // const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const onAddTag = () => {
     const tagName = window.prompt('请输入新标签名称：');
     if (tagName !== null) {
       setTags([...tags, tagName]);
     }
   };
-
   const onToggleTag = (tag: string) => {
     const index = selectedTags.indexOf(tag);
     if (index >= 0) {
-      setSelectedTags(selectedTags.filter(t => t !== tag));
+      props.onChange(selectedTags.filter(t => t !== tag));
     } else {
-      setSelectedTags([...selectedTags, tag]);
+      props.onChange([...selectedTags, tag]);
     }
   };
   const X = (tag: string) => selectedTags.indexOf(tag) >= 0 ? 'selected' : '';
@@ -52,9 +56,7 @@ const TagsSection: React.FunctionComponent = () => {
     <Wrapper>
       <ol>
         {tags.map(tag =>
-          <li key={tag} onClick={
-            () => onToggleTag(tag)
-          } className={X(tag)}
+          <li key={tag} onClick={() => onToggleTag(tag)} className={X(tag)}
           >{tag}</li>
         )}
       </ol>

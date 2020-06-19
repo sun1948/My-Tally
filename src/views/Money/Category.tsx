@@ -16,16 +16,21 @@ const Wrapper = styled.section`
     }
   }
 `;
-const CategorySection: React.FC = () => {
+
+type Props = {
+  value:'-'|'+';
+  onChange:(selected:'-'|'+')=>void;
+}
+const CategorySection: React.FC<Props> = (props) => {
   const [categoryList] = useState<('-' | '+')[]>(['-', '+']);
-  const [currentCategory, setCurrentCategory] = useState('-');
+  const currentCategory = props.value;
   const hashMap = {'-': '支出', '+': '收入'};
   return (
     <Wrapper>
       <ul>
         {categoryList.map(c =>
           <li key={c} className={currentCategory === c ? 'selected' : ''}
-              onClick={() => {setCurrentCategory(c);}}
+              onClick={() => {props.onChange(c);}}
           >{hashMap[c]}
           </li>
         )}

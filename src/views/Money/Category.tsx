@@ -24,7 +24,7 @@ const CategorySection: React.FC = () => {
     <Wrapper>
       <ul>
         {categoryList.map(c =>
-          <li className={currentCategory === c ? 'selected' : ''}
+          <li key={c} className={currentCategory === c ? 'selected' : ''}
               onClick={() => {setCurrentCategory(c);}}
           >{hashMap[c]}
           </li>

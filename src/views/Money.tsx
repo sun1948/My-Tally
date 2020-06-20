@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import Layout from 'components/layout';
+import Layout from 'components/Layout';
 import styled from 'styled-components';
 import {CategorySection} from './Money/Category';
 import {NoteSection} from './Money/NoteSection';
@@ -18,7 +18,6 @@ const Money = () => {
     category: '-' as CategoryType,
     amount: 0
   });
-
   const onChange = (obj: Partial<typeof selected>) => {
     setSelected({
       ...selected,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import Layout from 'components/layout';
 import styled from 'styled-components';
 import {CategorySection} from './Money/Category';
@@ -9,45 +9,33 @@ import {TagsSection} from './Money/TagsSection';
 const MyLayout = styled(Layout)`
   display: flex;
   flex-direction: column;
-`
+`;
 type CategoryType = '-' | '+';
 const Money = () => {
-  const [selected,setSelected] = useState({
-    tags:[] as string[],
-    note:'',
-    category:'-' as CategoryType,
-    number:0
-  })
+  const [selected, setSelected] = useState({
+    tags: [] as string[],
+    note: '',
+    category: '-' as CategoryType,
+    amount: 0
+  });
+
+  const onChange = (obj: Partial<typeof selected>) => {
+    setSelected({
+      ...selected,
+      ...obj
+    });
+  };
   return (
     <MyLayout>
-      {selected.tags.join(',')}
-      <hr/>
-      {selected.note}
-      <hr/>
-      {selected.category}
-      <hr/>
-      {selected.number}
       <TagsSection value={selected.tags}
-                   onChange={(tags)=>{setSelected({
-                     ...selected,
-                     tags:tags
-                   })}}/>
+                   onChange={tags => onChange({tags})}/>
       <NoteSection value={selected.note}
-                   onChange={(note)=>{setSelected({
-                     ...selected,
-                     note:note
-                   })}}/>
+                   onChange={note=>onChange({note})}/>
       <CategorySection value={selected.category}
-                       onChange={(category)=>{setSelected({
-                         ...selected,
-                         category:category
-                       })}}/>
-      <NumberPadSection value={selected.number}
-                        onChange={number=>{setSelected({
-                          ...selected,
-                          number:number
-                        })}}
-                        onOk={()=>{}}/>
+                       onChange={category=>onChange({category})}/>
+      <NumberPadSection value={selected.amount}
+                        onChange={amount=>onChange({amount})}
+                        onOk={() => {}}/>
     </MyLayout>
   );
 };

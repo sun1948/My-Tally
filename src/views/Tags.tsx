@@ -39,9 +39,9 @@ const Tags = () => {
     <Layout>
       <TagList>
         {tags.map(tag =>
-          <li key={tag}>
+          <li key={tag.id}>
             <Link to={"/Tag/"+tag}>
-              <span className="oneLine">{tag}</span>
+              <span className="oneLine">{tag.id}:{tag.name}</span>
               <Icon name="right"/>
             </Link>
           </li>

@@ -13,7 +13,7 @@ const MyLayout = styled(Layout)`
 type CategoryType = '-' | '+';
 const Money = () => {
   const [selected, setSelected] = useState({
-    tags: [] as string[],
+    tags: [] as number[],
     note: '',
     category: '-' as CategoryType,
     amount: 0

@@ -7,8 +7,8 @@ type Params ={
 }
 const Tag:React.FC = ()=>{
   let { id } = useParams<Params>();
-  const {tags} = useTags();
-  const tag = tags.filter(tag => tag.id === parseInt(id))[0]
+  const {findTag} = useTags();
+  const tag = findTag(parseInt(id))
   return (
     <div>{tag.name}</div>
   )

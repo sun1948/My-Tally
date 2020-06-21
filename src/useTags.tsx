@@ -9,7 +9,8 @@ const defaultTags = [
 ]
 const useTags = ()=>{   //封装自定义hook，即一个函数内部使用useState/useRef等等，然后返回一个接口。
   const [tags, setTags] = useState<{id:number;name:string}[]>(defaultTags);
-  return {tags,setTags};
+  const findTag = (id:number) =>  tags.filter(tag => tag.id === id)[0];
+  return {tags,setTags,findTag};
 }
 
 export {useTags};

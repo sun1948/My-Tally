@@ -34,7 +34,7 @@ const Space = styled.div`
   height: 16px;
 `
 const Tags = () => {
-  const {tags, setTags} = useTags();
+  const {tags} = useTags();
   return (
     <Layout>
       <TagList>

@@ -13,12 +13,11 @@ const TagList = styled.ol`
     border-bottom: 1px solid #BCBBC1; 
     margin-left: 15px;
     > a{
-      display: flex; justify-content: space-between; 
-      align-items: center; 
+      display: flex; justify-content: space-between;
+      align-items: center;
       padding: 10px 0; //把padding放进a标签，使点击范围足够大
       .icon{
-      width: 20px; height: 18px;
-      margin-right: 16px; fill:#333333;
+      margin-right: 16px;
       }
     }
   }

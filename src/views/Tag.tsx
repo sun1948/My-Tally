@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {useTags} from 'useTags';
 import {useParams} from 'react-router-dom';
 import Layout from 'components/Layout';
@@ -27,10 +27,9 @@ const InputWrapper = styled.div`
   color: #333333;
 `
 const Tag: React.FC = () => {
-  let {id} = useParams<Params>();
-  const {findTag} = useTags();
-  const tag = findTag(parseInt(id));
-  const [x,setX] = useState(tag.name);
+  let {id:idString} = useParams<Params>();
+  const {findTag,updateTag} = useTags();
+  const tag = findTag(parseInt(idString));
   return (
     <Layout>
       <Topbar>
@@ -41,10 +40,10 @@ const Tag: React.FC = () => {
       <InputWrapper>
         <Input label="标签名"
                type="text"
-               placeholder="请写标签"
-               value={x}
-               onChange={e =>{
-                 setX(e.target.value)
+               placeholder="请输入标签名称"
+               value={tag.name}
+               onChange={e => {
+                 updateTag(tag.id,{name:e.target.value});
                }}
         />
       </InputWrapper>

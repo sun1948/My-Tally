@@ -27,7 +27,7 @@ function Nav() {
     <NavWrapper>
       <ul>
         <li>
-          <NavLink to="/tag" activeClassName="selected">
+          <NavLink to="/tag" exact activeClassName="selected">
             <Icon name="tag"/>
             标签
           </NavLink>

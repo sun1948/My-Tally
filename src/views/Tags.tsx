@@ -2,8 +2,9 @@ import React from 'react';
 import Layout from 'components/Layout';
 import {useTags} from 'useTags';
 import styled from 'styled-components';
-import Icon from '../components/Icon';
+import Icon from 'components/Icon';
 import { Link } from 'react-router-dom';
+import {Button} from 'components/Button';
 
 const TagList = styled.ol`
   font-size: 16px;
@@ -22,11 +23,6 @@ const TagList = styled.ol`
     }
   }
 `;
-const Button = styled.button`
-  font-size: 18px; padding: 8px 12px;
-  color: #fff; background: #767676;
-  border: none; border-radius: 4px;
-`;
 const Center = styled.div`
   display:flex; justify-content: center; align-items: center; flex-direction: column;
 `;
@@ -41,7 +37,7 @@ const Tags = () => {
         {tags.map(tag =>
           <li key={tag.id}>
             <Link to={"/Tag/"+tag.id}>
-              <span className="oneLine">{tag.id}:{tag.name}</span>
+              <span className="oneLine">{tag.name}</span>
               <Icon name="right"/>
             </Link>
           </li>

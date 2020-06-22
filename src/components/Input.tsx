@@ -1,41 +1,29 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 const Label = styled.label`
-  padding: 0 16px;
   display: flex;
   align-items: center;
 > span{
-    font-size: 14px; line-height: 22px; color: #333333;
     white-space: nowrap;
     margin-right: 16px;
   }
 > input{
-    height: 73px;
+    height: 44px;
     width: 100%;
     border: none;
     background: none;
   }
 `
-type Props = {
+type Props = {  //声明Input组件可以接受的参数，除了label，接受input的所有属性
   label: string;
-  value: string;
-  type: string;
-  placeholder:string;
-  onChange:(value:string)=>void;
-}
+} & React.InputHTMLAttributes<HTMLInputElement>;
 const Input: React.FC<Props> = (props)=>{
-  const [note, setNote] = useState(props.value);
+  const {label,children,...rest} = props;
   return (
     <Label>
-      <span>{props.label}</span>
-      <input type={props.type} placeholder={props.placeholder}
-             value={note}
-             onChange={ e => {
-               setNote(e.target.value);
-               props.onChange(e.target.value);
-             }}
-      />
+      <span>{label}</span>
+      <input {...rest}/>
     </Label>
   )
 }

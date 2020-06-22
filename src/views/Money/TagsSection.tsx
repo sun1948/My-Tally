@@ -26,7 +26,7 @@ const Wrapper = styled.section`
   button{
     font-size: 14px;border: none;
     background: none;border-bottom: 1px solid #333;
-    color: #666; padding: 2px 4px; margin-top: 14px;
+    color: #666; padding: 0 4px; margin-top: 14px;
   } 
   
 `;

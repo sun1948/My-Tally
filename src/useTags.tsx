@@ -1,14 +1,29 @@
-import {useState} from 'react';
+import {useState, useEffect, useRef} from 'react';
 import {createId} from 'lib/createId';
 
-const defaultTags = [
-  {id: createId(), name: '衣'},
-  {id: createId(), name: '食'},
-  {id: createId(), name: '住'},
-  {id: createId(), name: '行'}
-];
 const useTags = () => {   //封装自定义hook，即一个函数内部使用useState/useRef等等，然后返回一个接口。
-  const [tags, setTags] = useState<{ id: number; name: string }[]>(defaultTags);
+  const [tags, setTags] = useState<{ id: number; name: string }[]>([]);
+  //挂载后执行一次
+  useEffect(() => {
+    let localTags = JSON.parse(window.localStorage.getItem('localTags') || '[]');
+    if (!window.localStorage.getItem('localTags')) {
+      localTags = [
+        {id: createId(), name: '衣'},
+        {id: createId(), name: '食'},
+        {id: createId(), name: '住'},
+        {id: createId(), name: '行'}
+      ];
+    }
+    setTags(localTags);
+  }, []);
+  //tags更新即执行
+  const count = useRef(0);
+  useEffect(() => {
+    count.current += 1;
+    if (count.current > 1) {
+      window.localStorage.setItem('localTags', JSON.stringify(tags));
+    }
+  }, [tags]);
   const findTag = (id: number) => tags.filter(tag => tag.id === id)[0];
   const updateTag = (id: number, {name}: { name: string }) => {
     // 深拷贝写法

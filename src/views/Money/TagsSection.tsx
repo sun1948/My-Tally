@@ -42,7 +42,7 @@ const TagsSection: React.FunctionComponent<Props> = (props) => {
   const onAddTag = () => {
     const tagName = window.prompt('请输入新标签名称：');
     if (tagName !== null) {
-      setTags([...tags, {id:createId(),name:tagName}]);
+      setTags([...tags, {id: createId(), name: tagName}]);
     }
   };
   const onToggleTag = (tagId: number) => {

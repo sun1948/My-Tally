@@ -18,10 +18,16 @@ const useTags = () => {   //封装自定义hook，即一个函数内部使用use
       tag.id === id ? {id, name} : tag
     ));
   };
+  const addTag = () => {
+    const tagName = window.prompt('请输入新标签名称：');
+    if (tagName !== null && tagName !== '') {
+      setTags([...tags, {id: createId(), name: tagName}]);
+    }
+  };
   const deleteTag = (id: number) => {
     setTags(tags.filter(tag => tag.id !== id));
   };
-  return {tags, setTags, findTag, updateTag, deleteTag};
+  return {tags, setTags, findTag, updateTag, deleteTag, addTag};
 };
 
 export {useTags};

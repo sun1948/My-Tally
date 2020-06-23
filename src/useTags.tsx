@@ -20,13 +20,16 @@ const useTags = () => {   //封装自定义hook，即一个函数内部使用use
     }
     return result;
   };
-  //深拷贝
-  const tagsClone = JSON.parse(JSON.stringify(tags));
+  const tagsClone = JSON.parse(JSON.stringify(tags));   //深拷贝
   const updateTag = (id: number, obj: { name: string }) => {
     tagsClone.splice(findTagIndex(id), 1, {id: id, name: obj.name});
     setTags(tagsClone);
   };
-  return {tags, setTags, findTag, tagsClone, updateTag};
+  const deleteTag = (id: number) => {
+    tagsClone.splice(findTagIndex(id),1);
+    setTags(tagsClone);
+  };
+  return {tags, setTags, findTag, updateTag, deleteTag};
 };
 
 export {useTags};

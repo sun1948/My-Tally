@@ -17,7 +17,7 @@ const Topbar = styled.header`
   justify-content: space-between;
   align-items: center; background: #fff;
   padding: 12px 16px;
-`
+`;
 
 const InputWrapper = styled.div`
   background: #fff;
@@ -25,25 +25,20 @@ const InputWrapper = styled.div`
   margin-top: 8px;
   font-size: 16px;
   color: #333333;
-`
+`;
 const Tag: React.FC = () => {
-  let {id:idString} = useParams<Params>();
-  const {findTag,updateTag} = useTags();
+  let {id: idString} = useParams<Params>();
+  const {findTag, updateTag, deleteTag} = useTags();
   const tag = findTag(parseInt(idString));
-  return (
-    <Layout>
-      <Topbar>
-        <Icon name="left"/>
-        <span>编辑标签</span>
-        <Icon />
-      </Topbar>
+  const tagContent = (tag:{id:number;name:string}) => (
+    <div>
       <InputWrapper>
         <Input label="标签名"
                type="text"
                placeholder="请输入标签名称"
                value={tag.name}
                onChange={e => {
-                 updateTag(tag.id,{name:e.target.value});
+                 updateTag(tag.id, {name: e.target.value});
                }}
         />
       </InputWrapper>
@@ -51,10 +46,19 @@ const Tag: React.FC = () => {
         <Space/>
         <Space/>
         <Space/>
-        <Button>删除标签</Button>
+        <Button onClick={() => deleteTag(tag.id)}>删除标签</Button>
       </Center>
+    </div>
+  );
+  return (
+    <Layout>
+      <Topbar>
+        <Icon name="left"/>
+        <span>编辑标签</span>
+        <Icon/>
+      </Topbar>
+      {tag ? tagContent(tag) : <div>标签不存在</div>}
     </Layout>
-
   );
 };
 export {Tag};

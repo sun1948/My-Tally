@@ -15,8 +15,13 @@ type Params = {
 const Topbar = styled.header`
   display:flex;
   justify-content: space-between;
-  align-items: center; background: #fff;
+  align-items: center; 
+  background: #fff;
   padding: 12px 16px;
+  .icon{
+        width: 22px;
+        height: 22px;
+      }
 `;
 
 const InputWrapper = styled.div`
@@ -50,10 +55,13 @@ const Tag: React.FC = () => {
       </Center>
     </div>
   );
+  const onClickBack = ()=>{
+    window.history.back();
+  }
   return (
     <Layout>
       <Topbar>
-        <Icon name="left"/>
+        <Icon name="left" className="frank" onClick={onClickBack}/>
         <span>编辑标签</span>
         <Icon/>
       </Topbar>

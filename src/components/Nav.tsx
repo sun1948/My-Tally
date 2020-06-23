@@ -9,11 +9,12 @@ const NavWrapper = styled.nav`
   > ul{
     display: flex;
     > li{
-      width: 33.3333%;text-align: center;
+      width: 33.3333%; text-align: center;
       > a{
-        padding: 4px 0; display: flex;
+        padding: 6px 0; display: flex;
         flex-direction: column; align-items: center;
-        .icon{ width: 24px;height: 24px; }
+        font-size: 14px;
+        .icon{ width: 24px; height: 20px;}
         &.selected{ color: red;
           .icon{fill: red;}
         }

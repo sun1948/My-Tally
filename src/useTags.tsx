@@ -26,8 +26,7 @@ const useTags = () => {   //封装自定义hook，即一个函数内部使用use
     setTags(tagsClone);
   };
   const deleteTag = (id: number) => {
-    tagsClone.splice(findTagIndex(id),1);
-    setTags(tagsClone);
+    setTags(tags.filter(tag => tag.id !== id));
   };
   return {tags, setTags, findTag, updateTag, deleteTag};
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import {useTags} from 'useTags';
-import {useParams} from 'react-router-dom';
+import {useParams,useHistory} from 'react-router-dom';
 import Layout from 'components/Layout';
 import Icon from 'components/Icon';
 import {Button} from 'components/Button';
@@ -18,10 +18,7 @@ const Topbar = styled.header`
   align-items: center; 
   background: #fff;
   padding: 12px 16px;
-  .icon{
-        width: 22px;
-        height: 22px;
-      }
+  .icon{ width: 22px;height: 22px; }
 `;
 
 const InputWrapper = styled.div`
@@ -55,13 +52,15 @@ const Tag: React.FC = () => {
       </Center>
     </div>
   );
+  //使用hash模式的Router，前进和后退都不会刷新页面
+  const history = useHistory();
   const onClickBack = ()=>{
-    window.history.back();
+    history.goBack();
   }
   return (
     <Layout>
       <Topbar>
-        <Icon name="left" className="frank" onClick={onClickBack}/>
+        <Icon name="left" onClick={onClickBack}/>
         <span>编辑标签</span>
         <Icon/>
       </Topbar>

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import cs from 'classnames';
 
 // require('icons/tag.svg');
 // require('icons/money.svg');
@@ -23,7 +24,7 @@ const Icon = (props: Props) => {
   const {name,children,className,...rest} = props;
   return (
     <IconWrapper>
-      <svg className={`icon ${className}`} {...rest}>
+      <svg className={cs("icon",className)} {...rest}>
         {/*注意.name，外部数据以对象形式传入*/}
         <use xlinkHref={"#" + props.name}/>
       </svg>

@@ -27,11 +27,11 @@ const Money = () => {
       ...obj
     });
   };
-  const {records, addRecord} = useRecord();
+  const {addRecord} = useRecord();
   const submit = () => {
-    if(selected.tagIds.length === 0){
-      alert('请选择标签')
-      return
+    if (selected.tagIds.length === 0) {
+      alert('请选择标签');
+      return;
     }
     addRecord(selected);
     alert('记账成功');

@@ -3,11 +3,11 @@ import {createId} from 'lib/createId';
 import {useUpdate} from 'hooks/useUpdate';
 
 const useTags = () => {   //封装自定义hook，即一个函数内部使用useState/useRef等等，然后返回一个接口。
-  console.log('tags初始化');
+  console.log('useTag执行了')
   const [tags, setTags] = useState<{ id: number; name: string }[]>([]);
-  console.log('tags初始化完成');
   //挂载后执行一次
   useEffect(() => {
+    console.log('tag挂载');
     let localTags = JSON.parse(window.localStorage.getItem('localTags') || '[]');
     if (!window.localStorage.getItem('localTags')) {
       localTags = [
@@ -20,7 +20,11 @@ const useTags = () => {   //封装自定义hook，即一个函数内部使用use
     setTags(localTags);
   }, []);
   //tags更新即执行
-  useUpdate(() => window.localStorage.setItem('localTags', JSON.stringify(tags)), [tags]);
+  useUpdate(() =>{
+    window.localStorage.setItem('localTags', JSON.stringify(tags));
+    console.log('tags setItem');
+  },
+    [tags]);
   const findTag = (id: number) => tags.filter(tag => tag.id === id)[0];
   const updateTag = (id: number, {name}: { name: string }) => {
     // 深拷贝写法

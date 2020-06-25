@@ -9,9 +9,17 @@ import {useTags} from '../hooks/useTags';
 const Wrapper = styled.div`
   background: white;
 `;
-const Records = styled.div`
-  
-`;
+const RecordList = styled.div`
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+  padding: 8px 16px;
+  > .note{
+    margin-right: auto;
+    margin-left: 16px;
+    color: #999;
+  }
+`
 const Statistics = () => {
   const [category, setCategory] = useState<'-' | '+'>('-');
   const {records} = useRecord();
@@ -21,20 +29,26 @@ const Statistics = () => {
       <Wrapper>
         <CategorySection value={category}
                          onChange={category => setCategory(category)}/>
-        <Records>
+        <div>
           {records.map(r => {
-            return <div>
-                     <span>{r.tagIds.map(tagId=>getName(tagId))}</span>
-                     <hr/>
-                     <span>{r.amount}</span>
-                     <hr/>
-                     <span>{day(r.createAt).format('YYYY年MM月DD日')}</span>
-                   </div>
+            return <RecordList>
+                     <div className="tagName">
+                       <span>{r.tagIds.map(tagId=>getName(tagId))}</span>
+                     </div>
+                     {r.note && <div className="note">
+                       <span>{r.note}</span>
+                     </div>}
+                     <div className="amount">
+                       ¥<span>{r.amount}</span>
+                     </div>
+                   </RecordList>
           })}
-        </Records>
+        </div>
       </Wrapper>
 
     </Layout>
   );
 };
 export default Statistics;
+
+{/*<span>{day(r.createAt).format('YYYY年MM月DD日')}</span>*/}

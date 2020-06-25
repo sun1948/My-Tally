@@ -1,6 +1,6 @@
 import Layout from 'components/Layout';
 import {CategorySection} from 'views/Money/Category';
-import React, {useState} from 'react';
+import React, {useState, ReactNode} from 'react';
 import styled from 'styled-components';
 import {RecordItem, useRecord} from 'hooks/useRecord';
 import day from 'dayjs';
@@ -10,6 +10,7 @@ const Wrapper = styled.div`
   background: white;
 `;
 const RecordList = styled.div`
+  background: white;
   display: flex;
   justify-content: space-between;
   font-size: 18px;
@@ -18,13 +19,12 @@ const RecordList = styled.div`
     margin-right: auto;
     margin-left: 16px;
     color: #999;
-    font-size: 14px;
+    font-size: 16px;
   }
 `;
-const Header = styled.div`
+const Header = styled.h3`
   font-size: 18px;
   padding: 8px 16px;
-  background: #c4c4c4;
 `;
 
 const Statistics = () => {
@@ -52,29 +52,34 @@ const Statistics = () => {
       <Wrapper>
         <CategorySection value={category}
                          onChange={category => setCategory(category)}/>
-        {array.map(([date,records]) => {   //使用析构赋值
-          return <>
-            <Header>{date}</Header>
-            <div>
-              {records.map(record => {
-                  return <RecordList>
-                    <div className="tagName oneLine">
-                      <span>{record.tagIds.map(tagId => getName(tagId))}</span>
-                    </div>
-                    {record.note && <div className="note oneLine">
-                      <span>{record.note}</span>
-                    </div>}
-                    <div className="amount">
-                      ¥<span>{record.amount}</span>
-                    </div>
-                  </RecordList>;
-                }
-              )}
-            </div>
-          </>;
-        })}
       </Wrapper>
 
+      {array.map(([date, records]) => {   //使用析构赋值
+        return <>
+          <Header>{date}</Header>
+          <div>
+            {records.map(record => {
+                return <RecordList>
+                  <div className="tagName oneLine">
+                    {record.tagIds
+                      .map(tagId => <span>{getName(tagId)}</span>)
+                      .reduce((result, span, index, arr) =>
+                          index < arr.length - 1 ? result.concat([span, '，']) : result.concat([span])
+                        , [] as ReactNode[])
+                    }
+                  </div>
+                  {record.note && <div className="note oneLine">
+                    <span>{record.note}</span>
+                  </div>}
+                  <div className="amount">
+                    ¥<span>{record.amount}</span>
+                  </div>
+                </RecordList>;
+              }
+            )}
+          </div>
+        </>;
+      })}
     </Layout>
   );
 };

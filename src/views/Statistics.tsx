@@ -15,33 +15,38 @@ const RecordList = styled.div`
   font-size: 18px;
   padding: 8px 16px;
   > .note{
-    margin-right: auto;
+    //margin-right: auto;
     margin-left: 16px;
     color: #999;
   }
-`
+`;
+
 const Statistics = () => {
   const [category, setCategory] = useState<'-' | '+'>('-');
   const {records} = useRecord();
   const {getName} = useTags();
+  const selectedRecords = records.filter(r => r.category === category);
   return (
     <Layout>
       <Wrapper>
         <CategorySection value={category}
                          onChange={category => setCategory(category)}/>
         <div>
-          {records.map(r => {
+          {selectedRecords.map(r => {
             return <RecordList>
-                     <div className="tagName">
-                       <span>{r.tagIds.map(tagId=>getName(tagId))}</span>
-                     </div>
-                     {r.note && <div className="note">
-                       <span>{r.note}</span>
-                     </div>}
-                     <div className="amount">
-                       ¥<span>{r.amount}</span>
-                     </div>
-                   </RecordList>
+              <div className="tagName oneLine">
+                <span>{r.tagIds.map(tagId => getName(tagId))}</span>
+              </div>
+              {r.note && <div className="note oneLine">
+                <span>{r.note}</span>
+              </div>}
+              <div className="amount">
+                ¥<span>{r.amount}</span>
+              </div>
+              <div className="creatAt oneLine">
+                <span>{day(r.createAt).format('YYYY年MM月DD日')}</span>
+              </div>
+            </RecordList>;
           })}
         </div>
       </Wrapper>
@@ -51,4 +56,3 @@ const Statistics = () => {
 };
 export default Statistics;
 
-{/*<span>{day(r.createAt).format('YYYY年MM月DD日')}</span>*/}

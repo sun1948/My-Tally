@@ -43,7 +43,10 @@ const useTags = () => {   //封装自定义hook，即一个函数内部使用use
   const deleteTag = (id: number) => {
     setTags(tags.filter(tag => tag.id !== id));
   };
-  return {tags, setTags, findTag, updateTag, deleteTag, addTag};
+  const getName = (id:number)=>{
+    return tags.filter(tag => tag.id === id)[0].name;
+  }
+  return {tags, setTags, getName, findTag, updateTag, deleteTag, addTag};
 };
 
 export {useTags};

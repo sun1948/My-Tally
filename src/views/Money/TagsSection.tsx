@@ -38,7 +38,6 @@ type Props = {
 const TagsSection: React.FunctionComponent<Props> = (props) => {
   const selectedTags = props.value;
   const {tags, setTags} = useTags();
-  // const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const onAddTag = () => {
     const tagName = window.prompt('请输入新标签名称：');
     if (tagName !== null) {

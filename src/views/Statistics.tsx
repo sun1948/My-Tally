@@ -1,10 +1,10 @@
 import Layout from 'components/Layout';
-import {CategorySection} from './Money/Category';
+import {CategorySection} from 'views/Money/Category';
 import React, {useState} from 'react';
 import styled from 'styled-components';
-import {useRecord} from '../hooks/useRecord';
+import {RecordItem, useRecord} from 'hooks/useRecord';
 import day from 'dayjs';
-import {useTags} from '../hooks/useTags';
+import {useTags} from 'hooks/useTags';
 
 const Wrapper = styled.div`
   background: white;
@@ -15,38 +15,63 @@ const RecordList = styled.div`
   font-size: 18px;
   padding: 8px 16px;
   > .note{
-    //margin-right: auto;
+    margin-right: auto;
     margin-left: 16px;
     color: #999;
+    font-size: 14px;
   }
+`;
+const Header = styled.div`
+  font-size: 18px;
+  padding: 8px 16px;
+  background: #c4c4c4;
 `;
 
 const Statistics = () => {
   const [category, setCategory] = useState<'-' | '+'>('-');
-  const {records} = useRecord();
+  const {records,} = useRecord();
   const {getName} = useTags();
   const selectedRecords = records.filter(r => r.category === category);
+  const hash: { [Key: string]: RecordItem[] } = {};  //对象中无顺序，需要后面手动排序
+  selectedRecords.map(r => {   //或者forEach(无返回值)，后者for循环
+    const key = day(r.createAt).format('YYYY年MM月DD日');
+    if (!(key in hash)) {
+      hash[key] = [];
+    }
+    hash[key].push(r);
+  });
+  const array = Object.entries(hash).sort((a, b) => {
+    if (a[0] > b[0]) return -1;
+    if (a[0] < b[0]) return 1;
+    return 0;
+  });
+
   return (
     <Layout>
       <Wrapper>
         <CategorySection value={category}
                          onChange={category => setCategory(category)}/>
         <div>
-          {selectedRecords.map(r => {
-            return <RecordList>
-              <div className="tagName oneLine">
-                <span>{r.tagIds.map(tagId => getName(tagId))}</span>
+          {array.map(arr => {
+            return <>
+              <Header>{arr[0]}</Header>
+              <div>
+                {arr[1].map(record => {
+                    return <RecordList>
+                      <div className="tagName oneLine">
+                        <span>{record.tagIds.map(tagId => getName(tagId))}</span>
+                      </div>
+                      {record.note && <div className="note oneLine">
+                        <span>{record.note}</span>
+                      </div>}
+                      <div className="amount">
+                        ¥<span>{record.amount}</span>
+                      </div>
+                    </RecordList>;
+                  }
+                )}
               </div>
-              {r.note && <div className="note oneLine">
-                <span>{r.note}</span>
-              </div>}
-              <div className="amount">
-                ¥<span>{r.amount}</span>
-              </div>
-              <div className="creatAt oneLine">
-                <span>{day(r.createAt).format('YYYY年MM月DD日')}</span>
-              </div>
-            </RecordList>;
+            </>;
           })}
         </div>
       </Wrapper>

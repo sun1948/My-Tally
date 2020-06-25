@@ -40,6 +40,7 @@ const Statistics = () => {
     }
     hash[key].push(r);
   });
+  //对象转成数组 Object.entries()
   const array = Object.entries(hash).sort((a, b) => {
     if (a[0] > b[0]) return -1;
     if (a[0] < b[0]) return 1;
@@ -51,29 +52,27 @@ const Statistics = () => {
       <Wrapper>
         <CategorySection value={category}
                          onChange={category => setCategory(category)}/>
-        <div>
-          {array.map(arr => {
-            return <>
-              <Header>{arr[0]}</Header>
-              <div>
-                {arr[1].map(record => {
-                    return <RecordList>
-                      <div className="tagName oneLine">
-                        <span>{record.tagIds.map(tagId => getName(tagId))}</span>
-                      </div>
-                      {record.note && <div className="note oneLine">
-                        <span>{record.note}</span>
-                      </div>}
-                      <div className="amount">
-                        ¥<span>{record.amount}</span>
-                      </div>
-                    </RecordList>;
-                  }
-                )}
-              </div>
-            </>;
-          })}
-        </div>
+        {array.map(([date,records]) => {   //使用析构赋值
+          return <>
+            <Header>{date}</Header>
+            <div>
+              {records.map(record => {
+                  return <RecordList>
+                    <div className="tagName oneLine">
+                      <span>{record.tagIds.map(tagId => getName(tagId))}</span>
+                    </div>
+                    {record.note && <div className="note oneLine">
+                      <span>{record.note}</span>
+                    </div>}
+                    <div className="amount">
+                      ¥<span>{record.amount}</span>
+                    </div>
+                  </RecordList>;
+                }
+              )}
+            </div>
+          </>;
+        })}
       </Wrapper>
 
     </Layout>

@@ -41,8 +41,3 @@ export {CategorySection};
 
 
 
-
-{/*<li className={category ==='-'? 'selected' : ''}*/}
-{/*    onClick={()=>{setCategory('-')}}>支出</li>*/}
-{/*<li className={category ==='+'? 'selected' : ''}*/}
-{/*    onClick={()=>{setCategory('+')}}>收入</li>*/}

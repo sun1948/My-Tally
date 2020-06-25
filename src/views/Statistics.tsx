@@ -33,7 +33,7 @@ const Statistics = () => {
   const {getName} = useTags();
   const selectedRecords = records.filter(r => r.category === category);
   const hash: { [Key: string]: RecordItem[] } = {};  //对象中无顺序，需要后面手动排序
-  selectedRecords.map(r => {   //或者forEach(无返回值)，后者for循环
+  selectedRecords.forEach(r => {   //或者forEach(无返回值)，后者for循环
     const key = day(r.createAt).format('YYYY年MM月DD日');
     if (!(key in hash)) {
       hash[key] = [];
@@ -55,14 +55,14 @@ const Statistics = () => {
       </Wrapper>
 
       {array.map(([date, records]) => {   //使用析构赋值
-        return <>
+        return <div key={date}>
           <Header>{date}</Header>
           <div>
             {records.map(record => {
                 return <RecordList>
                   <div className="tagName oneLine">
                     {record.tagIds
-                      .map(tagId => <span>{getName(tagId)}</span>)
+                      .map(tagId => <span key={tagId}>{getName(tagId)}</span>)
                       .reduce((result, span, index, arr) =>
                           index < arr.length - 1 ? result.concat([span, '，']) : result.concat([span])
                         , [] as ReactNode[])
@@ -78,7 +78,7 @@ const Statistics = () => {
               }
             )}
           </div>
-        </>;
+        </div>;
       })}
     </Layout>
   );

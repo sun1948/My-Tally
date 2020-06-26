@@ -2,6 +2,7 @@
   "name": "morney-13",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://sun1948.github.io/MyTally-website/",
   "dependencies": {
     "@babel/core": "7.9.0",
     "@svgr/webpack": "4.3.3",

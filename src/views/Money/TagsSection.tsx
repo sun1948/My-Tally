@@ -17,8 +17,10 @@ const Wrapper = styled.section`
     >li{
       background-color: #d9d9d9; 
       display: inline-block; 
-      border-radius: 18px; padding: 1px 18px;
-      line-height: 22px; margin: 4px 12px;
+      border-radius: 18px;
+      padding: 1px 18px;
+      line-height: 22px; 
+      margin: 4px 12px;
       &.selected{
         background: #f60;
       }

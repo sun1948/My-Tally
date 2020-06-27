@@ -5,11 +5,12 @@ import styled from 'styled-components';
 import {RecordItem, useRecord} from 'hooks/useRecord';
 import day from 'dayjs';
 import {useTags} from 'hooks/useTags';
+import { Link } from 'react-router-dom';
 
 const Wrapper = styled.div`
   background: white;
 `;
-const RecordList = styled.div`
+const Item = styled.div`
   background: white;
   display: flex;
   justify-content: space-between;
@@ -59,22 +60,26 @@ const Statistics = () => {
           <Header>{date}</Header>
           <div>
             {records.map(record => {
-                return <RecordList>
-                  <div className="tagName oneLine">
-                    {record.tagIds
-                      .map(tagId => <span key={tagId}>{getName(tagId)}</span>)
-                      .reduce((result, span, index, arr) =>
-                          index < arr.length - 1 ? result.concat([span, '，']) : result.concat([span])
-                        , [] as ReactNode[])
-                    }
-                  </div>
-                  {record.note && <div className="note oneLine">
-                    <span>{record.note}</span>
-                  </div>}
-                  <div className="amount">
-                    ¥<span>{record.amount}</span>
-                  </div>
-                </RecordList>;
+                return (
+                  <Link to={'/RecordItem/' + record.tagIds}>
+                    <Item>
+                      <div className="tagName oneLine">
+                        {record.tagIds
+                          .map(tagId => <span key={tagId}>{getName(tagId)}</span>)
+                          .reduce((result, span, index, arr) =>
+                              index < arr.length - 1 ? result.concat([span, '，']) : result.concat([span])
+                            , [] as ReactNode[])
+                        }
+                      </div>
+                      {record.note && <div className="note oneLine">
+                        <span>{record.note}</span>
+                      </div>}
+                      <div className="amount">
+                        ¥<span>{record.amount}</span>
+                      </div>
+                    </Item>
+                  </Link>
+                );
               }
             )}
           </div>

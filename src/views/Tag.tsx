@@ -1,25 +1,17 @@
 import React from 'react';
 import {useTags} from 'hooks/useTags';
-import {useParams,useHistory} from 'react-router-dom';
+import {useParams, useHistory} from 'react-router-dom';
 import Layout from 'components/Layout';
-import Icon from 'components/Icon';
 import {Button} from 'components/Button';
 import styled from 'styled-components';
 import {Input} from 'components/Input';
 import {Center} from 'components/Center';
 import {Space} from 'components/Space';
+import {Topbar} from 'components/Topbar';
 
 type Params = {
   id: string;
 }
-const Topbar = styled.header`
-  display:flex;
-  justify-content: space-between;
-  align-items: center; 
-  background: #fff;
-  padding: 12px 16px;
-  .icon{ width: 22px;height: 22px; }
-`;
 
 const InputWrapper = styled.div`
   background: #fff;
@@ -32,7 +24,7 @@ const Tag: React.FC = () => {
   let {id: idString} = useParams<Params>();
   const {findTag, updateTag, deleteTag} = useTags();
   const tag = findTag(parseInt(idString));
-  const tagContent = (tag:{id:number;name:string}) => (
+  const tagContent = (tag: { id: number; name: string }) => (
     <div>
       <InputWrapper>
         <Input label="标签名"
@@ -59,11 +51,7 @@ const Tag: React.FC = () => {
   }
   return (
     <Layout>
-      <Topbar>
-        <Icon name="left" onClick={onClickBack}/>
-        <span>编辑标签</span>
-        <Icon/>
-      </Topbar>
+      <Topbar value={'编辑标签'} onClick={onClickBack}/>
       {tag ? tagContent(tag) : <div>标签不存在</div>}
     </Layout>
   );

@@ -6,6 +6,7 @@ import Statistics from './views/Statistics';
 import NoMatch from './views/NoMatch';
 import styled from 'styled-components';
 import {Tag} from './views/Tag';
+import {RecordItem} from './views/RecordItem';
 
 const AppWrapper = styled.div`
   color: #333;
@@ -29,6 +30,9 @@ function App() {
           </Route>
           <Route exact path="/statistics">
             <Statistics/>
+          </Route>
+          <Route exact path="/recordItem/:frank">
+            <RecordItem/>
           </Route>
           <Redirect exact from="/" to="/tag"/>
           <Route path="*">

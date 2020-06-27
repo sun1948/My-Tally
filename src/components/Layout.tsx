@@ -10,6 +10,10 @@ const Wrapper = styled.div`
 const Content = styled.div`
   flex-grow:1;
   overflow: auto;  //如果内容过高，使滚动区域出现在自身上，不影响下面
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none; 
 `;
 
 type Props = {

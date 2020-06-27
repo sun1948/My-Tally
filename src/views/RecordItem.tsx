@@ -35,7 +35,7 @@ type Params = {
   tagIds: string;
 }
 export const RecordItem: React.FC = () => {
-  const {records, setRecords, getRecords, updateRecords, updateNote} = useRecord();
+  const {records, setRecords, getRecords, updateNote,updateAmount} = useRecord();
   const {getName} = useTags();
   let {tagIds: idString} = useParams<Params>();
   const tagIdsArray = idString.split(',');
@@ -56,19 +56,25 @@ export const RecordItem: React.FC = () => {
           />
           <Category>
             <label className="expense">
-              <input type="radio" id="-" name="drone" value="-" checked/>
+              <input type="radio" id="-" name="drone"
+                     value={getRecords(numberArray, 'category')}
+                     checked={getRecords(numberArray, 'category') === '-'}
+              />
               <span>支出</span>
             </label>
 
             <label className="income">
-              <input type="radio" id="+" name="drone" value="+"/>
+              <input type="radio" id="+" name="drone"
+                     value={getRecords(numberArray, 'category')}
+                     checked={getRecords(numberArray, 'category') === '+'}
+              />
               <span>收入</span>
             </label>
           </Category>
           <Input label="数额:"
                  value={getRecords(numberArray, 'amount')}
                  type="text"
-                 onChange={e => updateRecords(numberArray, {amount: parseFloat(e.target.value) || 0})}
+                 onChange={e => updateAmount(numberArray, {amount: parseFloat(e.target.value) || 0})}
           />
         </InputWrapper>
         <Center>

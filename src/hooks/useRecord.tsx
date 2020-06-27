@@ -22,22 +22,22 @@ export const useRecord = () => {
     const record = {...newRecord, createAt: (new Date()).toISOString()};
     setRecords([...records, record]);
   };
-  const getRecords = (tagIds: number[], type: 'amount' | 'note') => {
+  const getRecords = (tagIds: number[], type: 'amount' | 'note' | 'category') => {
     if (records.filter(r => r.tagIds.toString() === tagIds.toString())[0]) {
       return records.filter(r => r.tagIds.toString() === tagIds.toString())[0][type];
     } else {
       return;
     }
   };
-  const updateRecords = (tagIds: number[], {amount}: { amount: number }) => {
-    setRecords(records.map(r =>
-      r.tagIds.toString() === tagIds.toString() ? {...r, amount: amount} : r
-    ));
-  };
   const updateNote = (tagIds: number[], {note}: { note: string }) => {
     setRecords(records.map(r =>
-      r.tagIds.toString() === tagIds.toString() ? {...r, note: note} : r
+      r.tagIds.toString() === tagIds.toString() ? {...r, note} : r
     ));
   };
-  return {records, setRecords, addRecord, getRecords, updateRecords,updateNote};
+  const updateAmount = (tagIds: number[], {amount}: { amount: number }) => {
+    setRecords(records.map(r =>
+      r.tagIds.toString() === tagIds.toString() ? {...r, amount} : r
+    ));
+  };
+  return {records, setRecords, addRecord, getRecords, updateNote, updateAmount};
 };

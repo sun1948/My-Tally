@@ -22,35 +22,35 @@ export const useRecord = () => {
     const record = {...newRecord, createAt: (new Date()).toISOString()};
     setRecords([...records, record]);
   };
-  const getRecords = (tagIds: number[], type: 'amount' | 'note' | 'category') => {
-    if (records.filter(r => r.tagIds.toString() === tagIds.toString())[0]) {
-      return records.filter(r => r.tagIds.toString() === tagIds.toString())[0][type];
+  const getRecords = (idString: string, type: 'amount' | 'note' | 'category') => {
+    if (records.filter(r => r.tagIds.toString() === idString)[0]) {
+      return records.filter(r => r.tagIds.toString() === idString)[0][type];
     } else {
       return;
     }
   };
-  const updateNote = (tagIds: number[], {note}: { note: string }) => {
+  const updateNote = (idString: string, {note}: { note: string }) => {
     setRecords(records.map(r =>
-      r.tagIds.toString() === tagIds.toString() ? {...r, note} : r
+      r.tagIds.toString() === idString ? {...r, note} : r
     ));
   };
-  const updateAmount = (tagIds: number[], {amount}: { amount: number }) => {
+  const updateAmount = (idString: string, {amount}: { amount: number }) => {
     setRecords(records.map(r =>
-      r.tagIds.toString() === tagIds.toString() ? {...r, amount} : r
+      r.tagIds.toString() === idString ? {...r, amount} : r
     ));
   };
-  const updateCategory = (tagIds: number[], {category}: { category: '-' | '+' }) => {
+  const updateCategory = (idString: string, {category}: { category: '-' | '+' }) => {
     setRecords(records.map(r =>
-      r.tagIds.toString() === tagIds.toString() ? {...r, category} : r
+      r.tagIds.toString() === idString ? {...r, category} : r
     ));
   };
-  const deleteRecord = (tagIds: number[]) => {
+  const deleteRecord = (idString: string) => {
     setRecords(records.filter(r =>
-      r.tagIds.toString() !== tagIds.toString()
+      r.tagIds.toString() !== idString
     ));
   };
-  const findRecords = (tagIds: number[]) => records.filter(r =>
-    r.tagIds.toString() === tagIds.toString())[0];
+  const findRecords = (idString: string) => records.filter(r =>
+    r.tagIds.toString() === idString)[0];
   return {
     records,
     setRecords,

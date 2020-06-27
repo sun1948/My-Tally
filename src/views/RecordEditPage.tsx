@@ -34,16 +34,18 @@ const Category = styled.div`
 
 const Div = styled.div`
   padding: 8px 16px;
-`
+`;
+
 type Params = {
   tagIds: string;
 }
+
 export const RecordEditPage: React.FC = () => {
   const {getRecords, updateNote, updateAmount, updateCategory, deleteRecord, findRecords} = useRecord();
   const {getName} = useTags();
   let {tagIds: idString} = useParams<Params>();
   const numberArray = idString.split(',').map(id => parseInt(id));
-  const record = findRecords(numberArray);
+  const record = findRecords(idString);
   const Main = () => (
     <div>
       <InputWrapper>
@@ -52,39 +54,39 @@ export const RecordEditPage: React.FC = () => {
                type="text"
         />
         <Input label="备注:"
-               value={getRecords(numberArray, 'note')}
+               value={getRecords(idString, 'note')}
                type="text"
-               onChange={e => updateNote(numberArray, {note: e.target.value})}
+               onChange={e => updateNote(idString, {note: e.target.value})}
         />
         <Category>
           <label className="expense">
             <input type="radio" name="drone"
-                   value={getRecords(numberArray, 'category')}
-                   checked={getRecords(numberArray, 'category') === '-'}
-                   onClick={() => updateCategory(numberArray, {category: '-'})}
+                   value={getRecords(idString, 'category')}
+                   checked={getRecords(idString, 'category') === '-'}
+                   onClick={() => updateCategory(idString, {category: '-'})}
             />
             <span>支出</span>
           </label>
           <label className="income">
             <input type="radio" name="drone"
-                   value={getRecords(numberArray, 'category')}
-                   checked={getRecords(numberArray, 'category') === '+'}
-                   onClick={() => updateCategory(numberArray, {category: '+'})}
+                   value={getRecords(idString, 'category')}
+                   checked={getRecords(idString, 'category') === '+'}
+                   onClick={() => updateCategory(idString, {category: '+'})}
             />
             <span>收入</span>
           </label>
         </Category>
         <Input label="数额:"
-               value={getRecords(numberArray, 'amount')}
+               value={getRecords(idString, 'amount')}
                type="text"
-               onChange={e => updateAmount(numberArray, {amount: parseFloat(e.target.value) || 0})}
+               onChange={e => updateAmount(idString, {amount: parseFloat(e.target.value) || 0})}
         />
       </InputWrapper>
       <Center>
         <Space/>
         <Space/>
         <Space/>
-        <Button onClick={() => deleteRecord(numberArray)}>删除记录</Button>
+        <Button onClick={() => deleteRecord(idString)}>删除记录</Button>
       </Center>
     </div>
   );

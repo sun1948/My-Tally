@@ -1,6 +1,6 @@
 import React from 'react';
 import {useTags} from 'hooks/useTags';
-import {useParams, useHistory} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import Layout from 'components/Layout';
 import {Button} from 'components/Button';
 import styled from 'styled-components';
@@ -45,13 +45,9 @@ const Tag: React.FC = () => {
     </div>
   );
   //使用hash模式的Router，前进和后退都不会刷新页面
-  const history = useHistory();
-  const onClickBack = ()=>{
-    history.goBack();
-  }
   return (
     <Layout>
-      <Topbar value={'编辑标签'} onClick={onClickBack}/>
+      <Topbar value={'编辑标签'}/>
       {tag ? tagContent(tag) : <div>标签不存在</div>}
     </Layout>
   );

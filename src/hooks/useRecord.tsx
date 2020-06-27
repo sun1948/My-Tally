@@ -10,20 +10,34 @@ export type RecordItem = {
 }
 type newRecordItem = Omit<RecordItem, 'createAt'>
 export const useRecord = () => {
-  console.log('useRecord执行了');
   const [records, setRecords] = useState<RecordItem[]>([]);
   useEffect(() => {
-    console.log('records挂载');
     const localRecords = JSON.parse(window.localStorage.getItem('records') || '[]');
     setRecords(localRecords);
   }, []);
   useUpdate(() => {
     window.localStorage.setItem('records', JSON.stringify(records));
-    console.log('record setItem');
   }, records);
   const addRecord = (newRecord: newRecordItem) => {
     const record = {...newRecord, createAt: (new Date()).toISOString()};
     setRecords([...records, record]);
   };
-  return {records, setRecords, addRecord};
+  const getRecords = (tagIds: number[], type: 'amount' | 'note') => {
+    if (records.filter(r => r.tagIds.toString() === tagIds.toString())[0]) {
+      return records.filter(r => r.tagIds.toString() === tagIds.toString())[0][type];
+    } else {
+      return;
+    }
+  };
+  const updateRecords = (tagIds: number[], {amount}: { amount: number }) => {
+    setRecords(records.map(r =>
+      r.tagIds.toString() === tagIds.toString() ? {...r, amount: amount} : r
+    ));
+  };
+  const updateNote = (tagIds: number[], {note}: { note: string }) => {
+    setRecords(records.map(r =>
+      r.tagIds.toString() === tagIds.toString() ? {...r, note: note} : r
+    ));
+  };
+  return {records, setRecords, addRecord, getRecords, updateRecords,updateNote};
 };

@@ -22,7 +22,6 @@ const useTags = () => {   //封装自定义hook，即一个函数内部使用use
   //tags更新即执行
   useUpdate(() => {
       window.localStorage.setItem('localTags', JSON.stringify(tags));
-      console.log('tags setItem');
     },
     tags);
   const findTag = (id: number) => tags.filter(tag => tag.id === id)[0];

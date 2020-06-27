@@ -1,6 +1,7 @@
 import Icon from './Icon';
 import styled from 'styled-components';
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 const TopbarWrapper = styled.header`
   display:flex;
@@ -15,12 +16,15 @@ const TopbarWrapper = styled.header`
 
 type Props = {
   value: string;
-  onClick : ()=>void;
 }
 export const Topbar: React.FC<Props> = (props) => {
+  const history = useHistory();
+  const onClickBack = ()=>{
+    history.goBack();
+  }
   return (
     <TopbarWrapper>
-      <Icon name="left" onClick={props.onClick}/>
+      <Icon name="left" onClick={onClickBack}/>
       <span>{props.value}</span>
       <Icon/>
     </TopbarWrapper>

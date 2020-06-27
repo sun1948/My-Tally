@@ -31,7 +31,7 @@ function App() {
           <Route exact path="/statistics">
             <Statistics/>
           </Route>
-          <Route exact path="/recordItem/:frank">
+          <Route exact path="/recordItem/:tagIds">
             <RecordItem/>
           </Route>
           <Redirect exact from="/" to="/tag"/>

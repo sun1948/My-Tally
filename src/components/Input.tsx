@@ -16,7 +16,7 @@ const Label = styled.label`
   }
 `
 type Props = {  //声明Input组件可以接受的参数，除了label，接受input的所有属性
-  label: string;
+  label?: string;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 const Input: React.FC<Props> = (props)=>{
   const {label,children,...rest} = props;

@@ -1,7 +1,6 @@
 import {useRef, useEffect} from 'react';
 
 const useUpdate = (fn: () => void, dependency: any[]) => {
-  console.log('useUpdate')
   const count = useRef(0);
   useEffect(()=>{
     count.current += 1;

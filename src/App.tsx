@@ -6,7 +6,7 @@ import Statistics from './views/Statistics';
 import NoMatch from './views/NoMatch';
 import styled from 'styled-components';
 import {Tag} from './views/Tag';
-import {RecordItem} from './views/RecordItem';
+import {RecordEditPage} from './views/RecordEditPage';
 
 const AppWrapper = styled.div`
   color: #333;
@@ -32,7 +32,7 @@ function App() {
             <Statistics/>
           </Route>
           <Route exact path="/recordItem/:tagIds">
-            <RecordItem/>
+            <RecordEditPage/>
           </Route>
           <Redirect exact from="/" to="/tag"/>
           <Route path="*">

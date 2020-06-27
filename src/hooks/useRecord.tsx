@@ -49,5 +49,17 @@ export const useRecord = () => {
       r.tagIds.toString() !== tagIds.toString()
     ));
   };
-  return {records, setRecords, addRecord, getRecords, updateNote, updateAmount, updateCategory, deleteRecord};
+  const findRecords = (tagIds: number[]) => records.filter(r =>
+    r.tagIds.toString() === tagIds.toString())[0];
+  return {
+    records,
+    setRecords,
+    addRecord,
+    getRecords,
+    updateNote,
+    updateAmount,
+    updateCategory,
+    deleteRecord,
+    findRecords
+  };
 };

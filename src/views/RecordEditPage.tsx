@@ -32,15 +32,19 @@ const Category = styled.div`
   }
 `;
 
+const Div = styled.div`
+  padding: 8px 16px;
+`
 type Params = {
   tagIds: string;
 }
-export const RecordItem: React.FC = () => {
-  const {getRecords, updateNote, updateAmount, updateCategory, deleteRecord} = useRecord();
+export const RecordEditPage: React.FC = () => {
+  const {getRecords, updateNote, updateAmount, updateCategory, deleteRecord, findRecords} = useRecord();
   const {getName} = useTags();
   let {tagIds: idString} = useParams<Params>();
   const numberArray = idString.split(',').map(id => parseInt(id));
-  const Main = (numberArray: number[]) => (
+  const record = findRecords(numberArray);
+  const Main = () => (
     <div>
       <InputWrapper>
         <Input label="标签:"
@@ -89,7 +93,7 @@ export const RecordItem: React.FC = () => {
     <Layout>
       <div>
         <Topbar value="修改记录"/>
-        {numberArray ? Main(numberArray) : <div>记录不存在</div>}
+        {record ? Main() : <Div>记录不存在</Div>}
       </div>
     </Layout>
   );

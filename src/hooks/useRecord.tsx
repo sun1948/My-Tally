@@ -39,5 +39,15 @@ export const useRecord = () => {
       r.tagIds.toString() === tagIds.toString() ? {...r, amount} : r
     ));
   };
-  return {records, setRecords, addRecord, getRecords, updateNote, updateAmount};
+  const updateCategory = (tagIds: number[], {category}: { category: '-' | '+' }) => {
+    setRecords(records.map(r =>
+      r.tagIds.toString() === tagIds.toString() ? {...r, category} : r
+    ));
+  };
+  const deleteRecord = (tagIds: number[]) => {
+    setRecords(records.filter(r =>
+      r.tagIds.toString() !== tagIds.toString()
+    ));
+  };
+  return {records, setRecords, addRecord, getRecords, updateNote, updateAmount, updateCategory, deleteRecord};
 };

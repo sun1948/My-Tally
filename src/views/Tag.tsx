@@ -20,6 +20,9 @@ const InputWrapper = styled.div`
   font-size: 16px;
   color: #333333;
 `;
+const Statement = styled.div`
+  padding: 8px 16px;
+`
 const Tag: React.FC = () => {
   let {id: idString} = useParams<Params>();
   const {findTag, updateTag, deleteTag} = useTags();
@@ -48,7 +51,7 @@ const Tag: React.FC = () => {
   return (
     <Layout>
       <Topbar value={'编辑标签'}/>
-      {tag ? tagContent(tag) : <div>标签不存在</div>}
+      {tag ? tagContent(tag) : <Statement>标签不存在</Statement>}
     </Layout>
   );
 };

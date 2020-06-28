@@ -9,6 +9,7 @@ export type RecordItem = {
   createAt: string
 }
 type newRecordItem = Omit<RecordItem, 'createAt'>
+
 export const useRecord = () => {
   const [records, setRecords] = useState<RecordItem[]>([]);
   useEffect(() => {
@@ -18,30 +19,27 @@ export const useRecord = () => {
   useUpdate(() => {
     window.localStorage.setItem('records', JSON.stringify(records));
   }, records);
+  const findRecords = (timeString: string) => records.filter(r =>
+    r.createAt === timeString)[0];
   const addRecord = (newRecord: newRecordItem) => {
     const record = {...newRecord, createAt: (new Date()).toISOString()};
     setRecords([...records, record]);
   };
-  const getRecords = (timeString: string, type: 'amount' | 'note' | 'category') => {
+  const getRecord = (timeString: string, type: 'amount' | 'note' | 'category') => {
     if (records.filter(r => r.createAt === timeString)[0]) {
       return records.filter(r => r.createAt === timeString)[0][type];
     } else {
       return;
     }
   };
-  const updateNote = (timeString: string, {note}: { note: string }) => {
+  type Obj = {
+    note?: string
+    category?: '-' | '+'
+    amount?: number
+  }
+  const updateRecord = (timeString: string, obj: Obj) => {
     setRecords(records.map(r =>
-      r.createAt === timeString ? {...r, note} : r
-    ));
-  };
-  const updateAmount = (timeString: string, {amount}: { amount: number }) => {
-    setRecords(records.map(r =>
-      r.createAt === timeString ? {...r, amount} : r
-    ));
-  };
-  const updateCategory = (timeString: string, {category}: { category: '-' | '+' }) => {
-    setRecords(records.map(r =>
-      r.createAt === timeString ? {...r, category} : r
+      r.createAt === timeString ? {...r, ...obj} : r
     ));
   };
   const deleteRecord = (timeString: string) => {
@@ -49,16 +47,13 @@ export const useRecord = () => {
       r.createAt !== timeString
     ));
   };
-  const findRecords = (timeString: string) => records.filter(r =>
-    r.createAt === timeString)[0];
+
   return {
     records,
     setRecords,
     addRecord,
-    getRecords,
-    updateNote,
-    updateAmount,
-    updateCategory,
+    getRecord,
+    updateRecord,
     deleteRecord,
     findRecords
   };

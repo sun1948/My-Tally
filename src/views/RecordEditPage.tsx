@@ -1,14 +1,14 @@
 import Layout from 'components/Layout';
 import React from 'react';
 import {Topbar} from 'components/Topbar';
-import {Input} from '../components/Input';
-import {Center} from '../components/Center';
-import {Space} from '../components/Space';
-import {Button} from '../components/Button';
+import {Input} from 'components/Input';
+import {Center} from 'components/Center';
+import {Space} from 'components/Space';
+import {Button} from 'components/Button';
 import {useParams} from 'react-router-dom';
 import styled from 'styled-components';
-import {useRecord} from '../hooks/useRecord';
-import {TagNames} from '../components/TagNames';
+import {useRecord} from 'hooks/useRecord';
+import {TagNames} from 'components/TagNames';
 
 const Content = styled.div`
   background: #fff;
@@ -42,7 +42,7 @@ type Params = {
 }
 
 export const RecordEditPage: React.FC = () => {
-  const {getRecords, updateNote, updateAmount, updateCategory, deleteRecord, findRecords} = useRecord();
+  const {getRecord, updateRecord, deleteRecord, findRecords} = useRecord();
   let {createAt: timeString} = useParams<Params>();
   const record = findRecords(timeString);
   const Main = () => (
@@ -50,32 +50,32 @@ export const RecordEditPage: React.FC = () => {
       <Content>
         <TagNames record={record}/>
         <Input label="备注:"
-               value={getRecords(timeString, 'note')}
+               value={getRecord(timeString, 'note')}
                type="text"
-               onChange={e => updateNote(timeString, {note: e.target.value})}
+               onChange={e => updateRecord(timeString, {note: e.target.value})}
         />
         <Category>
           <label>
             <input type="radio" name="drone"
-                   value={getRecords(timeString, 'category')}
-                   checked={getRecords(timeString, 'category') === '-'}
-                   onClick={() => updateCategory(timeString, {category: '-'})}
+                   value={getRecord(timeString, 'category')}
+                   checked={getRecord(timeString, 'category') === '-'}
+                   onClick={() => updateRecord(timeString, {category: '-'})}
             />
             <span>支出</span>
           </label>
           <label>
             <input type="radio" name="drone"
-                   value={getRecords(timeString, 'category')}
-                   checked={getRecords(timeString, 'category') === '+'}
-                   onClick={() => updateCategory(timeString, {category: '+'})}
+                   value={getRecord(timeString, 'category')}
+                   checked={getRecord(timeString, 'category') === '+'}
+                   onClick={() => updateRecord(timeString, {category: '+'})}
             />
             <span>收入</span>
           </label>
         </Category>
         <Input label="数额:"
-               value={getRecords(timeString, 'amount')}
+               value={getRecord(timeString, 'amount')}
                type="text"
-               onChange={e => updateAmount(timeString, {amount: parseFloat(e.target.value) || 0})}
+               onChange={e => updateRecord(timeString, {amount: parseFloat(e.target.value) || 0})}
         />
       </Content>
       <Center>

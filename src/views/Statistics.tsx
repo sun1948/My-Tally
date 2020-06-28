@@ -60,7 +60,7 @@ const Statistics = () => {
           <div>
             {records.map(record => {
                 return (
-                  <Link to={'/recordItem/' + record.createAt}>
+                  <Link to={'/recordItem/' + record.createAt} key={record.createAt}>
                     <Item>
                       <TagNames record={record}/>
                       {record.note && <div className="note oneLine">

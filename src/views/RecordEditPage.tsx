@@ -58,10 +58,10 @@ export const RecordEditPage: React.FC = () => {
         />
         <Category>
           {categoryList.map(item =>
-            <label>
+            <label key={item}>
               <input type="radio" name="drone"
                      value={getRecord(timeString, 'category')}
-                     checked={getRecord(timeString, 'category') === item}
+                     defaultChecked={getRecord(timeString, 'category') === item}
                      onClick={() => updateRecord(timeString, {category: item})}
               />
               <span>{hashMap[item]}</span>

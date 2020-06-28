@@ -45,6 +45,8 @@ export const RecordEditPage: React.FC = () => {
   const {getRecord, updateRecord, deleteRecord, findRecords} = useRecord();
   let {createAt: timeString} = useParams<Params>();
   const record = findRecords(timeString);
+  const categoryList: ('-'|'+')[] = ['-','+']
+  const hashMap = {'-': '支出', '+': '收入'};
   const Main = () => (
     <div>
       <Content>
@@ -55,22 +57,16 @@ export const RecordEditPage: React.FC = () => {
                onChange={e => updateRecord(timeString, {note: e.target.value})}
         />
         <Category>
-          <label>
-            <input type="radio" name="drone"
-                   value={getRecord(timeString, 'category')}
-                   checked={getRecord(timeString, 'category') === '-'}
-                   onClick={() => updateRecord(timeString, {category: '-'})}
-            />
-            <span>支出</span>
-          </label>
-          <label>
-            <input type="radio" name="drone"
-                   value={getRecord(timeString, 'category')}
-                   checked={getRecord(timeString, 'category') === '+'}
-                   onClick={() => updateRecord(timeString, {category: '+'})}
-            />
-            <span>收入</span>
-          </label>
+          {categoryList.map(item =>
+            <label>
+              <input type="radio" name="drone"
+                     value={getRecord(timeString, 'category')}
+                     checked={getRecord(timeString, 'category') === item}
+                     onClick={() => updateRecord(timeString, {category: item})}
+              />
+              <span>{hashMap[item]}</span>
+            </label>
+          )}
         </Category>
         <Input label="数额:"
                value={getRecord(timeString, 'amount')}

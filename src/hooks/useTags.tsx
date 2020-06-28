@@ -3,11 +3,9 @@ import {createId} from 'lib/createId';
 import {useUpdate} from 'hooks/useUpdate';
 
 const useTags = () => {   //封装自定义hook，即一个函数内部使用useState/useRef等等，然后返回一个接口。
-  console.log('useTag执行了');
   const [tags, setTags] = useState<{ id: number; name: string }[]>([]);
   //挂载后执行一次
   useEffect(() => {
-    console.log('tag挂载');
     let localTags = JSON.parse(window.localStorage.getItem('localTags') || '[]');
     if (!window.localStorage.getItem('localTags')) {
       localTags = [

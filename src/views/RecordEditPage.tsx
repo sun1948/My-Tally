@@ -5,19 +5,21 @@ import {Input} from '../components/Input';
 import {Center} from '../components/Center';
 import {Space} from '../components/Space';
 import {Button} from '../components/Button';
-import {useTags} from '../hooks/useTags';
 import {useParams} from 'react-router-dom';
 import styled from 'styled-components';
 import {useRecord} from '../hooks/useRecord';
+import {TagNames} from '../components/TagNames';
 
-const InputWrapper = styled.div`
+const Content = styled.div`
   background: #fff;
   margin-top: 8px;
   padding: 0 16px;
   font-size: 16px;
   color: #333333;
+  > .tagName{
+    > span{ line-height: 44px; font-weight: bolder}
+  }
 `;
-
 const Category = styled.div`
   height: 44px;
   line-height: 18px;
@@ -31,62 +33,56 @@ const Category = styled.div`
     }
   }
 `;
-
-const Div = styled.div`
+const DeleteTag = styled.div`
   padding: 8px 16px;
 `;
 
 type Params = {
-  tagIds: string;
+  createAt: string;
 }
 
 export const RecordEditPage: React.FC = () => {
   const {getRecords, updateNote, updateAmount, updateCategory, deleteRecord, findRecords} = useRecord();
-  const {getName} = useTags();
-  let {tagIds: idString} = useParams<Params>();
-  const numberArray = idString.split(',').map(id => parseInt(id));
-  const record = findRecords(idString);
+  let {createAt: timeString} = useParams<Params>();
+  const record = findRecords(timeString);
   const Main = () => (
     <div>
-      <InputWrapper>
-        <Input label="标签:"
-               value={numberArray.map(id => getName(id)).join()}
-               type="text"
-        />
+      <Content>
+        <TagNames record={record}/>
         <Input label="备注:"
-               value={getRecords(idString, 'note')}
+               value={getRecords(timeString, 'note')}
                type="text"
-               onChange={e => updateNote(idString, {note: e.target.value})}
+               onChange={e => updateNote(timeString, {note: e.target.value})}
         />
         <Category>
-          <label className="expense">
+          <label>
             <input type="radio" name="drone"
-                   value={getRecords(idString, 'category')}
-                   checked={getRecords(idString, 'category') === '-'}
-                   onClick={() => updateCategory(idString, {category: '-'})}
+                   value={getRecords(timeString, 'category')}
+                   checked={getRecords(timeString, 'category') === '-'}
+                   onClick={() => updateCategory(timeString, {category: '-'})}
             />
             <span>支出</span>
           </label>
-          <label className="income">
+          <label>
             <input type="radio" name="drone"
-                   value={getRecords(idString, 'category')}
-                   checked={getRecords(idString, 'category') === '+'}
-                   onClick={() => updateCategory(idString, {category: '+'})}
+                   value={getRecords(timeString, 'category')}
+                   checked={getRecords(timeString, 'category') === '+'}
+                   onClick={() => updateCategory(timeString, {category: '+'})}
             />
             <span>收入</span>
           </label>
         </Category>
         <Input label="数额:"
-               value={getRecords(idString, 'amount')}
+               value={getRecords(timeString, 'amount')}
                type="text"
-               onChange={e => updateAmount(idString, {amount: parseFloat(e.target.value) || 0})}
+               onChange={e => updateAmount(timeString, {amount: parseFloat(e.target.value) || 0})}
         />
-      </InputWrapper>
+      </Content>
       <Center>
         <Space/>
         <Space/>
         <Space/>
-        <Button onClick={() => deleteRecord(idString)}>删除记录</Button>
+        <Button onClick={() => deleteRecord(timeString)}>删除记录</Button>
       </Center>
     </div>
   );
@@ -95,7 +91,7 @@ export const RecordEditPage: React.FC = () => {
     <Layout>
       <div>
         <Topbar value="修改记录"/>
-        {record ? Main() : <Div>记录不存在</Div>}
+        {record ? Main() : <DeleteTag>记录删除成功</DeleteTag>}
       </div>
     </Layout>
   );

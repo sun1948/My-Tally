@@ -1,11 +1,11 @@
 import Layout from 'components/Layout';
 import {CategorySection} from 'views/Money/Category';
-import React, {useState, ReactNode} from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import {RecordItem, useRecord} from 'hooks/useRecord';
 import day from 'dayjs';
-import {useTags} from 'hooks/useTags';
 import { Link } from 'react-router-dom';
+import {TagNames} from '../components/TagNames';
 
 const Wrapper = styled.div`
   background: white;
@@ -31,7 +31,6 @@ const Header = styled.h3`
 const Statistics = () => {
   const [category, setCategory] = useState<'-' | '+'>('-');
   const {records,} = useRecord();
-  const {getName} = useTags();
   const selectedRecords = records.filter(r => r.category === category);
   const hash: { [Key: string]: RecordItem[] } = {};  //对象中无顺序，需要后面手动排序
   selectedRecords.forEach(r => {   //或者forEach(无返回值)，后者for循环
@@ -61,16 +60,9 @@ const Statistics = () => {
           <div>
             {records.map(record => {
                 return (
-                  <Link to={'/recordItem/' + record.tagIds}>
+                  <Link to={'/recordItem/' + record.createAt}>
                     <Item>
-                      <div className="tagName oneLine">
-                        {record.tagIds
-                          .map(tagId => <span key={tagId}>{getName(tagId)}</span>)
-                          .reduce((result, span, index, arr) =>
-                              index < arr.length - 1 ? result.concat([span, '，']) : result.concat([span])
-                            , [] as ReactNode[])
-                        }
-                      </div>
+                      <TagNames record={record}/>
                       {record.note && <div className="note oneLine">
                         <span>{record.note}</span>
                       </div>}

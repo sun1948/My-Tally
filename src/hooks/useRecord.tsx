@@ -22,35 +22,35 @@ export const useRecord = () => {
     const record = {...newRecord, createAt: (new Date()).toISOString()};
     setRecords([...records, record]);
   };
-  const getRecords = (idString: string, type: 'amount' | 'note' | 'category') => {
-    if (records.filter(r => r.tagIds.toString() === idString)[0]) {
-      return records.filter(r => r.tagIds.toString() === idString)[0][type];
+  const getRecords = (timeString: string, type: 'amount' | 'note' | 'category') => {
+    if (records.filter(r => r.createAt === timeString)[0]) {
+      return records.filter(r => r.createAt === timeString)[0][type];
     } else {
       return;
     }
   };
-  const updateNote = (idString: string, {note}: { note: string }) => {
+  const updateNote = (timeString: string, {note}: { note: string }) => {
     setRecords(records.map(r =>
-      r.tagIds.toString() === idString ? {...r, note} : r
+      r.createAt === timeString ? {...r, note} : r
     ));
   };
-  const updateAmount = (idString: string, {amount}: { amount: number }) => {
+  const updateAmount = (timeString: string, {amount}: { amount: number }) => {
     setRecords(records.map(r =>
-      r.tagIds.toString() === idString ? {...r, amount} : r
+      r.createAt === timeString ? {...r, amount} : r
     ));
   };
-  const updateCategory = (idString: string, {category}: { category: '-' | '+' }) => {
+  const updateCategory = (timeString: string, {category}: { category: '-' | '+' }) => {
     setRecords(records.map(r =>
-      r.tagIds.toString() === idString ? {...r, category} : r
+      r.createAt === timeString ? {...r, category} : r
     ));
   };
-  const deleteRecord = (idString: string) => {
+  const deleteRecord = (timeString: string) => {
     setRecords(records.filter(r =>
-      r.tagIds.toString() !== idString
+      r.createAt !== timeString
     ));
   };
-  const findRecords = (idString: string) => records.filter(r =>
-    r.tagIds.toString() === idString)[0];
+  const findRecords = (timeString: string) => records.filter(r =>
+    r.createAt === timeString)[0];
   return {
     records,
     setRecords,

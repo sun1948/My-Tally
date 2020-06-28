@@ -22,7 +22,6 @@ const defaultFormData = {
   amount: 0
 };
 const Money = () => {
-  console.log('money');
   const [selected, setSelected] = useState(defaultFormData);
   const onChange = (obj: Partial<typeof selected>) => {
     setSelected({
